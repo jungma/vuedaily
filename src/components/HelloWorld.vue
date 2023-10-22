@@ -1,42 +1,73 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
+    <p>{{  seen ? 'yes' : 'no'}}</p>
+    <p v-if="seen">이제 나를 볼 수 있어요</p>
+    <p v-else>이제 나를 볼 수 없어요2</p>
+    <!-- <p v-else-if="neverSeen">이제 나를 볼 수 없어요</p> -->
+    <p v-show="seen">이제 나를 볼 수 있어요</p>
+    <p v-show="!seen">이제 나를 볼 수 없어요</p>
+
+    <!-- 
+
+    1. v-if & v-show 차이점
+    v-if : display:none; css 로 제어
+    v-show : 태그 자체를 show hide 
+
+    -->
+    <a :href="url">링크 이동 </a>
+    <img :src="imagePath" />
+
+    <!-- 2. v-bind:class -->
+    <div :class="{ active : isActive }">활성화</div>
+
+    <!-- 3. v-bind:style -->
+    <div :style="{ color: activeColor, fontSize: fontSize + 'px' }">스타일정의</div>
+
+    <!-- 4. v-for : vue 2.2.0 이상에서 key값은 필수 -->
     <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router" target="_blank" rel="noopener">router</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-vuex" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
+      <li v-for="item in items" :key="item.name">
+        {{item.name}} - {{ item.age }}
+      </li>
     </ul>
-    <h3>Essential Links</h3>
     <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
+      <li v-for="(key, val, index) in person" :key="index">
+        {{index}}  {{key}} {{val}}
+      </li>
     </ul>
   </div>
+
 </template>
 
 <script>
 export default {
   name: 'HelloWorld',
-  props: {
-    msg: String
+  // props: {
+  //   msg: String
+  // },
+  data(){
+    return {
+      msg:'ㅂㄱ',
+      seen : true,
+      url : 'http://google.com',
+      isActive:true,
+      activeColor:'red',
+      fontSize:12,
+      imagePath:'/assets/logo.png',
+      items:[
+        {name:'red', age: 15},
+        {name:'blue', age: 25},
+        {name:'greed', age: 35},
+      ],
+      person:{
+        name:'mingo',
+        age : 34,
+        location : 'incheon'
+      }
+
+      
+      
+    }
   }
 }
 </script>
